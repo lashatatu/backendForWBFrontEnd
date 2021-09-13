@@ -1,3 +1,4 @@
 # Project exclude paths 1
 /node_modules/
 .env
+.keystone
