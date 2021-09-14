@@ -1,11 +1,12 @@
 import "dotenv/config";
-import { config, createSchema } from '@keystone-next/keystone/schema';
+import { config, createSchema } from "@keystone-next/keystone/schema";
+import { User } from "./schemas/User";
 
 const databaseURL =
   process.env.DATABASE_URL || "mongodb://localhost/keystone-sick-fits-tutorial";
 
 const sessionConfig = {
-  maxAge: 60 * 60 * 24 * 360, // how long stay singned in
+  maxAge: 60 * 60 * 24 * 360,
   secret: process.env.COOKIE_SECRET,
 };
 
@@ -16,15 +17,14 @@ export default config({
       credentials: true,
     },
   },
-  db:{
-    adapter:'mongoose',
-    url:databaseURL,
+  db: {
+    adapter: "mongoose",
+    url: databaseURL,
   },
-  lists:createSchema({
-
+  lists: createSchema({
+    User,
   }),
-  ui:{
-    isAccessAllowed:()=>true
+  ui: {
+    isAccessAllowed: () => true,
   },
-
 });
