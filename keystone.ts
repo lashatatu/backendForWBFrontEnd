@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { CartItem } from "./schemas/CartItem";
 import { config, createSchema } from "@keystone-next/keystone/schema";
 import { User } from "./schemas/User";
 import { createAuth } from "@keystone-next/auth";
@@ -54,6 +55,7 @@ export default withAuth(
       User,
       Product,
       ProductImage,
+      CartItem,
     }),
     ui: {
       isAccessAllowed: ({ session }) => {
