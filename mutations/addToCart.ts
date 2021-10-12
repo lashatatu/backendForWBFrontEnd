@@ -7,7 +7,7 @@ async function addToCart(
   { productId }: { productId: string },
   context: KeystoneContext
 ): Promise<CartItemCreateInput> {
-  console.log("adding to cart");
+  console.log("ADDING TO CART");
   const sesh = context.session as Session;
   if (!sesh.itemId) {
     throw new Error("You must be logged in to do this!");
@@ -30,11 +30,11 @@ async function addToCart(
   }
   return await context.lists.CartItem.createOne({
     data: {
-      product: { connect: { id: productId } },
-      user: { connect: { id: sesh.itemId } },
+      product: { connect: { id: productId }},
+      user: { connect: { id: sesh.itemId }},
     },
     resolveFields: false,
-  });
+  })
 }
 
 export default addToCart;

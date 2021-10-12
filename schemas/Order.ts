@@ -1,5 +1,5 @@
+import { integer, text, virtual,  relationship,} from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
-import { integer, relationship, text, virtual } from '@keystone-next/fields';
 import formatMoney from '../lib/formatMoney';
 
 export const Order = list({
