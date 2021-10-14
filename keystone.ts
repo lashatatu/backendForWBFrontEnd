@@ -20,7 +20,7 @@ import { extendGraphqlSchema } from './mutations';
 function check(name: string) {}
 
 const databaseURL =
-  process.env.DATABASE_URL || "mongodb://localhost/keystone-sick-fits-tutorial";
+  process.env.MONGO_URI || "mongodb://localhost/keystone-sick-fits-tutorial";
 
 const sessionConfig = {
   maxAge: 60 * 60 * 24 * 360,
