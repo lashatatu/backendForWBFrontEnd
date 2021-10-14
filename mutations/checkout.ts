@@ -1,5 +1,5 @@
 import { CartItem } from '../schemas/CartItem';
-
+import { User } from '../schemas/User';
 import {
   CartItemCreateInput,
   OrderCreateInput,

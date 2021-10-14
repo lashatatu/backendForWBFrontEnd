@@ -1,6 +1,6 @@
-import { list } from "@keystone-next/keystone/schema";
-import { password, relationship, text } from "@keystone-next/fields";
-import { permissions, rules } from "../seed-data/access";
+import { list } from '@keystone-next/keystone/schema';
+import { text, password, relationship } from '@keystone-next/fields';
+import { permissions, rules } from '../access';
 
 export const User = list({
   access: {

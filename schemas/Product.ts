@@ -1,6 +1,6 @@
-import { integer, relationship, select, text } from "@keystone-next/fields";
-import { list } from "@keystone-next/keystone/schema";
-import { isSignedIn, rules } from "../seed-data/access";
+import { integer, select, text, relationship } from '@keystone-next/fields';
+import { list } from '@keystone-next/keystone/schema';
+import { rules, isSignedIn } from '../access';
 
 export const Product = list({
   access: {

@@ -1,21 +1,23 @@
-import "dotenv/config";
-import { CartItem } from "./schemas/CartItem";
-import { config, createSchema } from "@keystone-next/keystone/schema";
-import { User } from "./schemas/User";
-import { createAuth } from "@keystone-next/auth";
+import { createAuth } from '@keystone-next/auth';
+import { config, createSchema } from '@keystone-next/keystone/schema';
 import {
-  statelessSessions,
   withItemData,
-} from "@keystone-next/keystone/session";
-import { Product } from "./schemas/Product";
-import { ProductImage } from "./schemas/ProductImage";
-import { insertSeedData } from "./seed-data";
-import { sendPasswordResetEmail } from "./lib/mail";
-import { extendGraphqlSchema } from "./mutations";
-import { OrderItem } from "./schemas/OrderItem";
-import { Order } from "./schemas/Order";
-import { Role } from "./schemas/Role";
+  statelessSessions,
+} from '@keystone-next/keystone/session';
 import { permissionsList } from './schemas/fields';
+import { Role } from './schemas/Role';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
+import { CartItem } from './schemas/CartItem';
+import { ProductImage } from './schemas/ProductImage';
+import { Product } from './schemas/Product';
+import { User } from './schemas/User';
+import 'dotenv/config';
+import { insertSeedData } from './seed-data';
+import { sendPasswordResetEmail } from './lib/mail';
+import { extendGraphqlSchema } from './mutations';
+
+function check(name: string) {}
 
 const databaseURL =
   process.env.DATABASE_URL || "mongodb://localhost/keystone-sick-fits-tutorial";
@@ -67,12 +69,14 @@ export default withAuth(
     }),
     extendGraphqlSchema,
     ui: {
-      isAccessAllowed: ({ session }) => {
-        return !!session?.data;
-      },
+      // Show the UI only for poeple who pass this test
+      isAccessAllowed: ({ session }) =>
+        // console.log(session);
+        !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
-      User: `id name email role {${permissionsList.join(' ')}`,
+      // GraphQL Query
+      User: `id name email role { ${permissionsList.join(' ')} }`,
     }),
   })
 );

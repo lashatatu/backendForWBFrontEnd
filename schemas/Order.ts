@@ -1,7 +1,13 @@
-import { integer, relationship, text, virtual } from "@keystone-next/fields";
-import { list } from "@keystone-next/keystone/schema";
-import formatMoney from "../lib/formatMoney";
-import { isSignedIn, rules } from "../seed-data/access";
+import {
+  integer,
+  select,
+  text,
+  relationship,
+  virtual,
+} from '@keystone-next/fields';
+import { list } from '@keystone-next/keystone/schema';
+import { isSignedIn, rules } from '../access';
+import formatMoney from '../lib/formatMoney';
 
 export const Order = list({
   access: {
@@ -12,9 +18,9 @@ export const Order = list({
   },
   fields: {
     label: virtual({
-      graphQLReturnType: "String",
-      resolver: function (item) {
-        return `lt is cool ${formatMoney(item.total)}`;
+      graphQLReturnType: 'String',
+      resolver(item) {
+        return `${formatMoney(item.total)}`;
       },
     }),
     total: integer(),

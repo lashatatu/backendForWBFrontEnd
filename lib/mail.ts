@@ -1,4 +1,4 @@
-import { createTransport, getTestMessageUrl } from 'nodemailer';
+import { createTransport, getTestMessageUrl } from "nodemailer";
 
 const transport = createTransport({
   host: process.env.MAIL_HOST,
@@ -9,25 +9,26 @@ const transport = createTransport({
   },
 });
 
-function makeNiceEmail(text: string): string {
+function makeANiceEmail(text: string) {
   return `
-  <div style='
-  border: 1px solid black;
-  padding:20px;
-  font-family: sans-serif;
-  line-height: 2;
-  font-size: 20px;  
+    <div className='email' style='
+      border: 1px solid black;
+      padding: 20px;
+      font-family: sans-serif;
+      line-height: 2;
+      font-size: 20px;  
   '>
-  <h2>Hello there !</h2>
-  <p>${text}</p>
-  <p>LT</p>
+      <h2>Hello There!</h2>
+      <p>${text}</p>
+
+      <p>😘, LT</p>
   </div>
   `;
 }
 
 export interface MailResponse {
-  accepted?: string[] | null;
-  rejected?: null[] | null;
+  accepted?: (string)[] | null;
+  rejected?: (null)[] | null;
   envelopeTime: number;
   messageTime: number;
   messageSize: number;
@@ -41,19 +42,22 @@ export interface Envelope {
   to?: string[] | null;
 }
 
+
 export async function sendPasswordResetEmail(
   resetToken: string,
   to: string
 ): Promise<void> {
+  // email the user a token
   const info = (await transport.sendMail({
     to,
     from: "lashatatu@gmail.com",
     subject: "Your password reset token",
-    html: makeNiceEmail(`Your password reset token is here    
+    html: makeANiceEmail(`Your Password Reset Token is here    
     <a href='${process.env.FRONTEND_URL}/reset?token=${resetToken}'>Click here to reset</a>
     `),
   })) as MailResponse;
-  if(process.env.MAIL_USER.includes('ethereal.email')){
-    console.log(` message sent! preview it at ${getTestMessageUrl(info)}`);
+  if (process.env.MAIL_USER.includes("ethereal.email")) {
+    console.log(`💌 Message Sent!  Preview it at ${getTestMessageUrl(info)}`);
+
   }
 }
